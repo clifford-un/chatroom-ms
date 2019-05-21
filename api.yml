@@ -1,0 +1,187 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Chat Room ms
+  description: Java + MySQL
+  license:
+    name: Kiwi Platform
+host: 35.237.43.91:7000
+basePath: /chatroom-ms
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+
+  /test:
+    get:
+        summary: Test connection to microservice
+        responses:
+          '200':
+            description: Ok
+
+  /get_rooms/{user_id}:
+    get:
+      summary: Return a List of Users in a given chat room code
+      operationId: getChatRoomFromUser
+      parameters: 
+        - name: user_id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema: 
+            $ref: '#/definitions/ChatRoomUser'
+          
+  /get_users/{room_id}:
+    get:
+      summary: Return a List of Users in a given chat room code
+      operationId: getUsersFromChatRoom
+      parameters: 
+        - name: room_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema: 
+            $ref: '#/definitions/ChatRoom'
+
+  /chatroom:
+    post:
+      summary: Creates a new chatroom
+      operationId: createChatRoom
+      parameters:
+        - name: name
+          in: body
+          required: true
+          description: name of new chat room
+          schema:
+            $ref: '#/definitions/ChatRoom'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    
+  /chatroom/{room_id}/:
+      
+    delete:
+      summary: Deletes a chatroom with the given code
+      operationId: deleteChatRoom
+      parameters:
+        - name: room_id
+          in: path
+          description: The code of the chat room to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+  /user:
+    post:
+      summary: Add a new user to a Chat Room
+      operationId: addUserToChatRoom
+      parameters:
+        - name: ChatRoomUser
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChatRoomUser'
+          
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    
+    delete:
+      summary: Deletes an user from given chat room id
+      operationId: removeUserFromChatRoom
+      parameters:
+        - name: ChatRoomUser
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChatRoomUser'
+          
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+          
+definitions:
+
+  ChatRoom:
+    type: object
+    properties:
+      code:
+        type: integer
+      name:
+        type: string
+
+  ChatRoomUser:
+    type: object
+    properties:
+      room_id:
+        type: integer
+      user_id:
+        type: string
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object
+
