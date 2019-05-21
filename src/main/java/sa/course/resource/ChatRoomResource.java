@@ -45,28 +45,28 @@ public class ChatRoomResource {
 
     @GET
     @Path("get_users/{room_id}")
-    public Response getChatFromUser(@PathParam("room_id") int room_id){
+    public Response getChatFromUser(@PathParam("room_id") long room_id){
         response = Response.status(Response.Status.OK);
-        ChatRoom chatRoom = chatRoomService.getCourseByCode(room_id);
-        response.entity(chatRoom);
+        List chatRooms = chatRoomUserService.filterByRoom(room_id);
+        response.entity(chatRooms);
         return response.build();
     }
 
     @POST
     @Path("chatroom")
     public Response createChatRoom(ChatRoom chatRoom) {
-        ChatRoom createdChatRoom = chatRoomService.createCourse(chatRoom);
+        ChatRoom createdChatRoom = chatRoomService.createChatRoom(chatRoom);
         response = Response.status(Response.Status.CREATED);
         response.entity(createdChatRoom);
         return response.build();
     }
 
     @DELETE
-    @Path("chatroom")
-    public Response deleteChatRoom(ChatRoom chatRoom) {
-        //Chat deletedChatRoom = chatRoomService.deleteCourse(chatRoom);
+    @Path("chatroom/{room_id}")
+    public Response deleteChatRoom(@PathParam("room_id") long room_id) {
+        long deletedChatRoom = chatRoomService.deleteChatRoom(room_id);
         response = Response.status(Response.Status.OK);
-        //response.entity(deletedChatRoom);
+        response.entity(deletedChatRoom);
         return response.build();
     }
 
