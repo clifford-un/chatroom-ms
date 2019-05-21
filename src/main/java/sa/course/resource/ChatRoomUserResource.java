@@ -1,7 +1,7 @@
 package sa.course.resource;
 
-import sa.course.model.Course;
-import sa.course.service.CourseService;
+import sa.course.model.ChatRoom;
+import sa.course.service.ChatRoomService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -9,12 +9,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.persistence.Entity;
-import java.net.URI;
 import java.util.List;
 
-@Path("")
-public class CourseResource {
+@Path("/room")
+public class ChatRoomUserResource {
 
     ResponseBuilder response;
 
@@ -22,43 +20,43 @@ public class CourseResource {
     UriInfo uriInfo;
 
     @EJB
-    CourseService courseService;
+    ChatRoomService chatRoomService;
 
     @GET
-    public List<Course> getAllCourses(@QueryParam("first") int first, @QueryParam("maxResult") int maxResult) {
-        return courseService.getAllCourses(first, maxResult);
+    public List<ChatRoom> getAllCourses(@QueryParam("first") int first, @QueryParam("maxResult") int maxResult) {
+        return chatRoomService.getAllCourses(first, maxResult);
     }
 
     @GET
     @Path("{code}")
     public Response getCourseByCode(@PathParam("code") long code) {
-        Course course = courseService.getCourseByCode(code);
+        ChatRoom chatRoom = chatRoomService.getCourseByCode(code);
         response = Response.status(Response.Status.OK);
-        response.entity(course);
+        response.entity(chatRoom);
         return response.build();
     }
 
     @POST
-    public Response createCourse(Course course) {
-        Course createdCourse = courseService.createCourse(course);
+    public Response createCourse(ChatRoom chatRoom) {
+        ChatRoom createdChatRoom = chatRoomService.createCourse(chatRoom);
         response = Response.status(Response.Status.CREATED);
-        response.entity(createdCourse);
+        response.entity(createdChatRoom);
         return response.build();
     }
 
     @PUT
     @Path("{code}")
-    public Response updateCourse(@PathParam("code") long code, Course course) {
-        Course updatedCourse = courseService.updateCourse(code, course);
+    public Response updateCourse(@PathParam("code") long code, ChatRoom chatRoom) {
+        ChatRoom updatedChatRoom = chatRoomService.updateCourse(code, chatRoom);
         response = Response.status(Response.Status.OK);
-        response.entity(updatedCourse);
+        response.entity(updatedChatRoom);
         return response.build();
     }
 
     @DELETE
     @Path("{code}")
     public Response deleteCourse(@PathParam("code") long code) {
-        long deletedCourseCode = courseService.deleteCourse(code);
+        long deletedCourseCode = chatRoomService.deleteCourse(code);
         response = Response.status(Response.Status.OK);
         response.entity(deletedCourseCode);
         return response.build();
