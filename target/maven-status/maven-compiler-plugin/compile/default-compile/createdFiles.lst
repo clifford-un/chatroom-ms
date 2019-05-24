@@ -1,6 +1,1 @@
-sa/course/service/ChatRoomService.class
-sa/course/model/ChatRoom.class
-sa/course/model/ChatRoomUser.class
-sa/course/resource/ChatRoomResource.class
-sa/course/service/ChatRoomUserService.class
-sa/course/JAXRSConfiguration.class
+sa/clifordun/chatroomms/ChatroomMsApplication.class
