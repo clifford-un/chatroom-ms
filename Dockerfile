@@ -3,7 +3,7 @@ FROM openjdk:8-jdk-alpine
 
 VOLUME /tmp
 
-EXPOSE 8080
+EXPOSE 4000
 
 ARG JAR_FILE=target/chatroom-ms-0.1.jar
 
