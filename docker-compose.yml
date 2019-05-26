@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  chatroom-ms:
+    container_name: chatroom-ms
+    build: ./
+    restart: on-failure
+    ports:
+      - "4000:8080"
+    depends_on:
+      - mongo-db
+
+
+  mongo-db:
+    image: mongo:4
+    container_name: mongo-db
+    ports:
+      - "3306:27017"

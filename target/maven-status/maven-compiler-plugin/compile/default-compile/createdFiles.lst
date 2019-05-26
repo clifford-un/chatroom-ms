@@ -1,0 +1,5 @@
+sa/clifordun/chatroomms/Models/Chatroom.class
+sa/clifordun/chatroomms/Controllers/ChatroomController.class
+sa/clifordun/chatroomms/Resources/ChatRoomResource.class
+sa/clifordun/chatroomms/Application.class
+sa/clifordun/chatroomms/Models/ChatroomUser.class
