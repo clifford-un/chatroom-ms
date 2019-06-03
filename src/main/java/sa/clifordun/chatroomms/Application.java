@@ -22,8 +22,8 @@ public class Application implements CommandLineRunner{
         //controller.deleteAll();
 
         // save a couple of customers
-        //controller.save(new Chatroom("CR1"));
-        //controller.save(new Chatroom("CR2"));
+        controller.save(new Chatroom("CR1"));
+        controller.save(new Chatroom("CR2"));
 
         // fetch all customers
         System.out.println("ChatRooms:");
