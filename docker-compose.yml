@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongo-db
     environment:
-      - MONGO_ULR="mongo-db:27017"
+      - MONGO_URL="mongo-db:27017"
 
 
   mongo-db:
