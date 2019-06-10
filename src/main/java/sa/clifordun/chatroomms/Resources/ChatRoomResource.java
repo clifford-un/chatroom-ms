@@ -26,6 +26,11 @@ public class ChatRoomResource {
         return new ResponseEntity<>(controller.getById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/chatroom/name/{name}")
+    public ResponseEntity<Object> getByName(@PathVariable String name){
+        return new ResponseEntity<>(controller.getByName(name), HttpStatus.OK);
+    }
+
     @PostMapping("/chatroom")
     public ResponseEntity<Object> createChatRoom(@RequestBody Chatroom room){
         controller.save(room);
